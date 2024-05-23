@@ -4,11 +4,34 @@ body {
     background: #f2f6e9;
 }
 
+.navbar {
+    background:#6ab446;
+}
+
+.nav-link,
+.navbar-brand {
+    color: #fff;
+    cursor: pointer;
+}
+
+.nav-link {
+    margin-right: 1em !important;
+}
+
+.nav-link:hover {
+    color: #000;
+}
+
+.navbar-collapse {
+    justify-content: flex-end;
+}
+
 .header {
-    background-image: url('images/header-background.jpg');
-    background-size: cover;
-    background-position: center;
-    position: relative;
+    background-image: linear-gradient(rgba(0, 0, 255, 0.5), rgba(255, 255, 0, 0.5)),
+   url("jakarta-city-background.png");
+   background-size: cover;
+   background-position: center;
+   position: relative;
 }
 
 .overlay {
@@ -21,28 +44,72 @@ body {
 }
 
 .description {
-    position: absolute;
-    top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
-    color: #fff;
+    position: absolute;
+    top: 45%;
+    transform: translate(-50%, -55%);
     text-align: center;
 }
 
-.navbar {
-    background: #6ab446;
+.description h1 {
+    color: #6ab446;
 }
 
-.nav-link,
-.navbar-brand {
+.description p {
     color: #fff;
-    cursor: pointer;
+    font-size: 1.3rem;
+    line-height: 1.5;
 }
 
-.nav-link:hover {
-    color: #000;
+.description button {
+    border:1px solid #6ab446;
+    background:#6ab446;
+    border-radius: 0;
+    color:#fff;
 }
 
-.navbar-collapse {
-    justify-content: flex-end;
+.description button:hover {
+    border:1px solid #fff;
+    background:#fff;
+    color:#000;
 }
+
+.features {
+    margin: 4em auto;
+    padding: 1em;
+    position: relative;
+}
+
+.feature-title {
+    color: #333;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+.features img {
+    -webkit-box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+    margin-bottom: 16px;
+}
+
+.features .form-control,
+.features input {
+    border-radius: 0;
+}
+
+.features .btn {
+    background-color: #589b37;
+    border: 1px solid #589b37;
+    color: #fff;
+    margin-top: 20x;
+}
+
+.features .btn:hover {
+    background-color: #333;
+    border: 1px solid #333;
+}
+
+
