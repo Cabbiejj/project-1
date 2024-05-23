@@ -5,13 +5,12 @@ body {
 }
 
 .navbar {
-    background:#6ab446;
+    background: #6ab446;
 }
 
 .nav-link,
 .navbar-brand {
     color: #fff;
-    cursor: pointer;
 }
 
 .nav-link {
@@ -27,11 +26,10 @@ body {
 }
 
 .header {
-    background-image: linear-gradient(rgba(0, 0, 255, 0.5), rgba(255, 255, 0, 0.5)),
-   url("jakarta-city-background.png");
-   background-size: cover;
-   background-position: center;
-   position: relative;
+    background-image: linear-gradient(rgba(0, 0, 255, 0.5), rgba(255, 255, 0, 0.5)), url("jakarta-city-background.png");
+    background-size: cover;
+    background-position: center;
+    position: relative;
 }
 
 .overlay {
@@ -62,16 +60,16 @@ body {
 }
 
 .description button {
-    border:1px solid #6ab446;
-    background:#6ab446;
+    border: 1px solid #6ab446;
+    background: #6ab446;
     border-radius: 0;
-    color:#fff;
+    color: #fff;
 }
 
 .description button:hover {
-    border:1px solid #fff;
-    background:#fff;
-    color:#000;
+    border: 1px solid #fff;
+    background: #fff;
+    color: #000;
 }
 
 .features {
@@ -104,7 +102,7 @@ body {
     background-color: #589b37;
     border: 1px solid #589b37;
     color: #fff;
-    margin-top: 20x;
+    margin-top: 20px;
 }
 
 .features .btn:hover {
@@ -112,4 +110,87 @@ body {
     border: 1px solid #333;
 }
 
+.logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
 
+.logo {
+    width: 300px;
+    height: auto;
+}
+
+.logo:hover {
+    opacity: 100;
+    transition: opacity 0.3s ease;
+}
+
+.get-in-touch {
+    background-color: #f8f9fa;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    border-radius: 10px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.get-in-touch .form-group {
+    margin-bottom: 15px;
+}
+
+.get-in-touch .form-control {
+    padding: 10px;
+    font-size: 0.9rem;
+}
+
+.get-in-touch .btn {
+    margin-top: 15px;
+    padding: 10px 15px;
+    font-size: 0.9rem;
+    background-color: #589b37;
+    border: 1px solid #589b37;
+    color: #fff;
+    width: 100%;
+    border-radius: 5px;
+}
+
+.get-in-touch .btn:hover {
+    background-color: #333;
+    border: 1px solid #333;
+}
+
+.get-in-touch h3.feature-title {
+    color: #333;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+.architecture {
+    text-align: center;
+    background-color: #fff;
+    padding: 10px;
+    margin:  auto;
+    max-width: auto;
+    border: 1px solid #0000;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.architecture h3 {
+    color: #6ab446;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.architecture p {
+    color: #333;
+    font-size: 1rem;
+    line-height: 1.5;
+}
