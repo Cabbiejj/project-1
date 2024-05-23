@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 // Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Get form data
@@ -15,20 +17,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $conn = mysqli_connect($servername, $username, $password, $database_name);
 
     // Check connection
-    if (!$conn) {
-        die("Connection failed: " . mysqli_connect_error());
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
     }
 
     // Insert data into database
     $sql = "INSERT INTO contacts (name, email, message) VALUES ('$name', '$email', '$message')";
 
-    if (mysqli_query($conn, $sql)) {
-        echo "<script>alert('Message sent successfully');</script>";
+    if ($conn->query($sql) === TRUE) {
+        $_SESSION['success'] = true; // Set session variable for success
+        echo "success"; // Send success response
     } else {
-        echo "<script>alert('Error: " . mysqli_error($conn) . "');</script>";
+        echo "Error: " . $sql . "<br>" . $conn->error;
     }
 
     // Close connection
-    mysqli_close($conn);
+    $conn->close();
+    exit(); // Stop further execution
 }
 ?>
