@@ -40,7 +40,7 @@ body {
 }
 
 .page-header .logo {
-    width: 180px; /* Increased logo size */
+    width: 300px; /* Increased logo size */
     height: auto;
     margin-bottom: 20px;
     animation: fadeIn 2s;
