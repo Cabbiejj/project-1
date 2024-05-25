@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Insert data into database
-    $sql = "INSERT INTO contacts (name, email, message) VALUES ('$name', '$email', '$message')";
+    $sql = "INSERT INTO get_in_touch (name, email, message) VALUES ('$name', '$email', '$message')";
 
     if ($conn->query($sql) === TRUE) {
         $_SESSION['success'] = true; // Set session variable for success
