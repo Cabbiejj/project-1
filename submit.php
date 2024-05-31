@@ -1,38 +1,53 @@
 <?php
-session_start();
+    session_start();
 
-// Check if the form is submitted
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Get form data
-    $name = $_POST['name'];
-    $email = $_POST['email'];
-    $message = $_POST['message'];
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        // Get form data and trim whitespace
+        $name = trim($_POST['name']);
+        $email = trim($_POST['email']);
+        $message = trim($_POST['message']);
 
-    // Create connection to the database
-    $servername = "localhost";
-    $username = "root";
-    $password = ""; 
-    $database_name = "project1"; 
+        // Validate form data
+        if (empty($name) || empty($email) || empty($message)) {
+            $_SESSION['error'] = "All fields are required.";
+        } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $_SESSION['error'] = "Invalid email format.";
+        } else {
+            // Database connection parameters
+            $servername = "localhost";
+            $username = "root";
+            $password = ""; 
+            $database_name = "project1"; 
 
-    $conn = mysqli_connect($servername, $username, $password, $database_name);
+            // Create connection to the database
+            $conn = new mysqli($servername, $username, $password, $database_name);
 
-    // Check connection
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
+            // Check connection
+            if ($conn->connect_error) {
+                die("Connection failed: " . $conn->connect_error);
+            }
+
+            // Prepare and bind the SQL statement to prevent SQL injection
+            $stmt = $conn->prepare("INSERT INTO get_in_touch (name, email, message) VALUES (?, ?, ?)");
+            if ($stmt === false) {
+                die("Prepare failed: " . $conn->error);
+            }
+            $stmt->bind_param("sss", $name, $email, $message);
+
+            // Execute the statement
+            if ($stmt->execute()) {
+                $_SESSION['success'] = "Thank you for getting in touch!";
+            } else {
+                $_SESSION['error'] = "Error: " . $stmt->error;
+            }
+
+            // Close statement and connection
+            $stmt->close();
+            $conn->close();
+        }
+
+        // Redirect back to the form page
+        header("Location: contact.html"); // Change to the appropriate page
+        exit();
     }
-
-    // Insert data into database
-    $sql = "INSERT INTO get_in_touch (name, email, message) VALUES ('$name', '$email', '$message')";
-
-    if ($conn->query($sql) === TRUE) {
-        $_SESSION['success'] = true; // Set session variable for success
-        echo "success"; // Send success response
-    } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
-    }
-
-    // Close connection
-    $conn->close();
-    exit(); // Stop further execution
-}
 ?>
