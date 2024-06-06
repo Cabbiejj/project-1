@@ -26,6 +26,12 @@ body {
     justify-content: flex-end;
 }
 
+.profile-logo {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+
 .header {
     background-image: linear-gradient(rgba(0, 0, 255, 0.5), rgba(255, 255, 0, 0.5)), url("jakarta-city-background.png");
     background-size: cover;
@@ -194,4 +200,3 @@ body {
     font-size: 1rem;
     line-height: 1.5;
 }
-
