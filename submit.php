@@ -1,53 +1,49 @@
 <?php
-    session_start();
+    // Database connection details
+    $dbname = "project1";
+    $dbuser = "root";
+    $dbpass = "";
+    $dbhost = "localhost";
 
+    // Create a new MySQLi instance
+    $conn = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
+
+    // Check connection
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    // Check if form is submitted
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        // Get form data and trim whitespace
-        $name = trim($_POST['name']);
-        $email = trim($_POST['email']);
-        $message = trim($_POST['message']);
+        // Retrieve form data
+        $name = $_POST['name'];
+        $email = $_POST['email'];
+        $message = $_POST['message'];
 
-        // Validate form data
-        if (empty($name) || empty($email) || empty($message)) {
-            $_SESSION['error'] = "All fields are required.";
-        } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $_SESSION['error'] = "Invalid email format.";
-        } else {
-            // Database connection parameters
-            $servername = "localhost";
-            $username = "root";
-            $password = ""; 
-            $database_name = "project1"; 
+        // Prepare an SQL statement to insert data
+        $stmt = $conn->prepare("INSERT INTO get_in_touch (name, email, message) VALUES (?, ?, ?)");
 
-            // Create connection to the database
-            $conn = new mysqli($servername, $username, $password, $database_name);
-
-            // Check connection
-            if ($conn->connect_error) {
-                die("Connection failed: " . $conn->connect_error);
-            }
-
-            // Prepare and bind the SQL statement to prevent SQL injection
-            $stmt = $conn->prepare("INSERT INTO get_in_touch (name, email, message) VALUES (?, ?, ?)");
-            if ($stmt === false) {
-                die("Prepare failed: " . $conn->error);
-            }
-            $stmt->bind_param("sss", $name, $email, $message);
-
-            // Execute the statement
-            if ($stmt->execute()) {
-                $_SESSION['success'] = "Thank you for getting in touch!";
-            } else {
-                $_SESSION['error'] = "Error: " . $stmt->error;
-            }
-
-            // Close statement and connection
-            $stmt->close();
-            $conn->close();
+        // Check if the statement was prepared successfully
+        if ($stmt === false) {
+            die("Error preparing statement: " . $conn->error);
         }
 
-        // Redirect back to the form page
-        header("Location: contact.html"); // Change to the appropriate page
-        exit();
+        // Bind the variables to the statement as parameters
+        $stmt->bind_param("sss", $name, $email, $message);
+
+        // Execute the statement
+        if ($stmt->execute()) {
+            // Redirect to index.html with success status
+            header("Location: index.html?status=success");
+            exit();
+        } else {
+            echo "Error: " . $stmt->error;
+        }
+
+        // Close the statement
+        $stmt->close();
     }
+
+    // Close the connection
+    $conn->close();
 ?>
