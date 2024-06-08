@@ -1,81 +1,76 @@
+/* Reset default padding and margin */
 body {
-    font-family: Arial, sans-serif;
+    padding: 0;
+    margin: 0;
+    background: #f2f6e9;
 }
 
-.page-header {
-    background-image: linear-gradient(rgba(0, 0, 255, 0.5), rgba(255, 255, 0, 0.5)), url("jakarta-city-background.png");
+/* Navigation Bar Styles */
+.navbar {
+    background: #6ab446;
+}
+
+.nav-link,
+.navbar-brand {
+    font-size: 1rem;
+    margin-top: 10px;
+}
+
+.nav-link {
+    margin-right: 1em !important;
+}
+
+.nav-link:hover {
+    color: #000;
+}
+
+.navbar-collapse {
+    justify-content: flex-end;
+}
+
+/* Contact Page Header Section Styles */
+.header {
+    background-image: linear-gradient(rgba(255, 0, 0, 0.5), rgba(0, 255, 255, 0.5)), url("jakarta-city-background.png");
     background-size: cover;
     background-position: center;
     position: relative;
-    padding-top: 500px; 
 }
 
-.page-header .overlay {
+.overlay {
     position: absolute;
-     min-height: 100%;
+    min-height: 100%;
     min-width: 100%;
     left: 0;
     top: 0;
     background: rgba(0, 0, 0, 0.6);
 }
 
-.page-header .description {
+.description {
     position: relative;
     top: 50%;
     transform: translateY(-50%);
     text-align: center;
 }
 
-.page-header .logo {
-    width: 300px;
-    height: auto;
+.description h1 {
+    color: #6ab446;
 }
 
-.navbar-brand {
-    font-size: 1rem;
-    margin-top: 10px; /* Added margin top to adjust for spacing */
+.description p {
+    color: #fff;
+    font-size: 1.3rem;
+    line-height: 1.5;
 }
 
-.contact-details,
-.contact-form {
-    margin-top: 2rem;
+.description button {
+    border: 1px solid #6ab446;
+    background: #6ab446;
+    border-radius: 0;
+    color: #fff;
 }
 
-.contact-details h3,
-.contact-form h3 {
-    margin-top: 0; /* Reset margin top */
-    margin-bottom: 1.5rem;
-}
-
-.contact-details p {
-    line-height: 1.6;
-}
-
-footer {
-    margin-top: 3rem;
-}
-
-footer p {
-    margin: 0;
-}
-#successPopup {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-    padding-top: 60px;
-}
-#successPopupContent {
-    background-color: #fefefe;
-    margin: 5% auto; /* 15% from the top and centered */
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%; /* Could be more or less, depending on screen size */
-    text-align: center;
+.description button:hover {
+    border: 1px solid #fff;
+    background: #fff;
+    color: #000;
 }

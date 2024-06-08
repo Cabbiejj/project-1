@@ -78,17 +78,19 @@ header {
 
 .gender-option {
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap; /* Allow items to wrap to the next row */
 }
 
 .gender {
   display: flex;
   align-items: center;
+  margin-right: 1rem; /* Adjust margin as needed */
 }
 
 .gender input {
   margin-right: 0.5rem;
 }
+
 
 .column {
   display: flex;
@@ -124,4 +126,36 @@ button {
 
 button:hover {
   background: linear-gradient(135deg, #000dff, #6b73ff);
+}
+
+.back-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 1.5rem;
+  color: #000;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.back-button:hover {
+  color: #6b73ff;
+}
+
+.phone-input {
+  display: flex;
+  align-items: center;
+}
+
+.phone-input input {
+  padding-left: 4rem; /* Adjust padding to accommodate country code */
+  position: relative;
+}
+
+.phone-input::before {
+  content: "+";
+  position: absolute;
+  left: 1rem;
+  font-size: 1rem;
+  color: #333;
 }
