@@ -91,7 +91,6 @@ header {
   margin-right: 0.5rem;
 }
 
-
 .column {
   display: flex;
   justify-content: space-between;
@@ -140,6 +139,12 @@ button:hover {
 
 .back-button:hover {
   color: #6b73ff;
+}
+
+.error-message {
+  color: red;
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
 }
 
 .phone-input {

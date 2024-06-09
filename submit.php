@@ -1,17 +1,5 @@
 <?php
-    // Database connection details
-    $dbname = "project1";
-    $dbuser = "root";
-    $dbpass = "";
-    $dbhost = "localhost";
-
-    // Create a new MySQLi instance
-    $conn = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
-
-    // Check connection
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
+    include 'db_connect.php';
 
     // Check if form is submitted
     if ($_SERVER["REQUEST_METHOD"] == "POST") {

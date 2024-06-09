@@ -1,40 +1,37 @@
 <?php
-// Database configuration
-$dbhost = "localhost";
-$dbname = "project1";
-$dbuser = "root";
-$dbpass = "";
+session_start();
+include 'db_connect.php';
 
-// Establishing a connection to the database
-$conn = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+// Check if user is logged in
+if (!isset($_SESSION['user_email'])) {
+    header("Location: login.php");
+    exit();
 }
 
-// Query to retrieve user information
-$sql = "SELECT * FROM users WHERE id = '1'"; // Assuming user ID 1, change as needed
+// Retrieve user information from the database
+$user_email = $_SESSION['user_email'];
+$sql = "SELECT name, phone, email, birthday, nationality FROM users WHERE email = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("s", $user_email);
+$stmt->execute();
+$stmt->store_result();
 
-$result = $conn->query($sql);
-
-if ($result->num_rows > 0) {
-    // Output data of each row
-    while($row = $result->fetch_assoc()) {
-        $fullName = $row["full_name"];
-        $email = $row["email"];
-        $phoneNumber = $row["phone"];
-        $birthDate = $row["birthday"];
-        $gender = $row["gender"];
-        $address = $row["address"];
-    }
+// Check if user exists
+if ($stmt->num_rows == 1) {
+    $stmt->bind_result($name, $phone, $email, $birthday, $nationality);
+    $stmt->fetch();
 } else {
-    echo "0 results";
+    // Handle error if user doesn't exist
+    // You can redirect to an error page or display a message
+    echo "Error: User not found";
+    exit();
 }
 
-// Close database connection
+// Close the database connection
+$stmt->close();
 $conn->close();
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -42,56 +39,57 @@ $conn->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="Style/profile.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="home.html">Home</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="profile.html" class="active">Profile</a></li>
-            </ul>
-        </nav>
-    </header>
 
-    <div class="container">
-        <div class="profile">
-            <h1>User Profile</h1>
-            <div class="profile-info">
-                <label for="fullName">Full Name:</label>
-                <p><?php echo $fullName; ?></p>
-
-                <label for="email">Email:</label>
-                <p><?php echo $email; ?></p>
-
-                <label for="phoneNumber">Phone Number:</label>
-                <p><?php echo $phoneNumber; ?></p>
-
-                <label for="birthDate">Birth Date:</label>
-                <p><?php echo $birthDate; ?></p>
-
-                <label for="gender">Gender:</label>
-                <p><?php echo $gender; ?></p>
-
-                <label for="address">Address:</label>
-                <p><?php echo $address; ?></p>
-            </div>
-        </div>
-
-        <div class="booking">
-            <h2>Book a Tour Guide</h2>
-            <form action="submit_booking.php" method="post">
-                <label for="date">Select Date:</label>
-                <input type="date" id="date" name="date" required>
-
-                <label for="message">Additional Message:</label>
-                <textarea id="message" name="message" rows="4"></textarea>
-
-                <button type="submit">Book Guide</button>
-            </form>
-        </div>
+<nav class="navbar">
+    <a class="navbar-brand" href="#">Your Website</a>
+    <div class="collapse navbar-collapse" id="main-navigation">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="index.html">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="about.html">About</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="contact.html">Contact</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="login.php">Login</a>
+            </li>
+        </ul>
     </div>
+</nav>
+
+<div class="container">
+    <h1>Welcome, <?php echo $name; ?></h1>
+    
+    <img class="profile-img" src="profile-image.jpg" alt="Profile Image">
+
+    <ul class="user-info">
+        <li><i class="fas fa-user"></i> <?php echo $name; ?></li>
+        <li><i class="fas fa-phone"></i> <?php echo $phone; ?></li>
+        <li><i class="fas fa-envelope"></i> <?php echo $email; ?></li>
+        <li><i class="fas fa-birthday-cake"></i> <?php echo $birthday; ?></li>
+        <li><i class="fas fa-globe"></i> <?php echo $nationality; ?></li>
+        <!-- Add more user information with icons here if needed -->
+    </ul>
+
+    <!-- Add booking form here or any other content -->
+
+    <form action="logout.php" method="post">
+        <input type="submit" value="Logout">
+    </form>
+</div>
+
+<footer>
+    <div class="container">
+        <p>&copy; 2024 Your Website. All rights reserved.</p>
+    </div>
+</footer>
+
 </body>
 </html>

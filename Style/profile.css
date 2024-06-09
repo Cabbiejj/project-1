@@ -1,44 +1,102 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
 }
 
 .container {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
+    width: 80%;
+    margin: 50px auto;
     background-color: #fff;
-    border-radius: 5px;
+    padding: 30px;
+    border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-form {
-    display: flex;
-    flex-direction: column;
+h1 {
+    text-align: center;
+    color: #333;
 }
 
-label {
-    margin-bottom: 8px;
+ul.user-info {
+    list-style-type: none;
+    padding: 0;
 }
 
-input[type="date"],
-select {
-    padding: 10px;
+ul.user-info li {
     margin-bottom: 20px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
+    color: #666;
+    display: flex;
+    align-items: center;
 }
 
-button {
-    padding: 10px 20px;
+ul.user-info li i {
+    margin-right: 10px;
+    font-size: 20px;
+    color: #333;
+}
+
+input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
     border: none;
-    background-color: #007bff;
-    color: #fff;
-    font-size: 16px;
-    border-radius: 5px;
+    border-radius: 4px;
     cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s;
 }
 
-button:hover {
-    background-color: #0056b3;
+input[type="submit"]:hover {
+    background-color: #45a049;
 }
+
+.profile-img {
+    display: block;
+    margin: 0 auto 20px;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.navbar {
+    background-color: #333;
+    padding: 10px;
+}
+
+.navbar-brand {
+    color: #fff;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.navbar-nav {
+    margin-left: auto;
+}
+
+.nav-item {
+    margin-left: 20px;
+}
+
+.nav-link {
+    color: #fff;
+    text-decoration: none;
+}
+
+.nav-link:hover {
+    color: #fff
+    .nav-link:hover {
+        color: #f0f0f0;
+    }
+}
+    footer {
+        background-color: #333;
+        color: #fff;
+        padding: 20px 0;
+        text-align: center;
+    }
+    
