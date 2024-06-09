@@ -1,5 +1,9 @@
 <?php
 session_start();
+
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 include 'db_connect.php';
 
 // Check if user is logged in
@@ -10,7 +14,7 @@ if (!isset($_SESSION['user_email'])) {
 
 // Retrieve user information from the database
 $user_email = $_SESSION['user_email'];
-$sql = "SELECT name, phone, email, birthday, nationality FROM users WHERE email = ?";
+$sql = "SELECT name, phone, email, birthday, address FROM user WHERE email = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("s", $user_email);
 $stmt->execute();
@@ -32,7 +36,6 @@ $stmt->close();
 $conn->close();
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -41,6 +44,11 @@ $conn->close();
     <title>User Profile</title>
     <link rel="stylesheet" href="Style/profile.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        .logout-option {
+            display: none;
+        }
+    </style>
 </head>
 <body>
 
@@ -58,7 +66,14 @@ $conn->close();
                 <a class="nav-link" href="contact.html">Contact</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="login.php">Login</a>
+                <!-- Make user name clickable -->
+                <span class="nav-link user-name" onclick="toggleLogoutOption()"><?php echo $name; ?></span>
+                <!-- Logout option -->
+                <div class="logout-option">
+                    <form action="logout.php" method="post">
+                        <input type="submit" value="Logout">
+                    </form>
+                </div>
             </li>
         </ul>
     </div>
@@ -67,7 +82,7 @@ $conn->close();
 <div class="container">
     <h1>Welcome, <?php echo $name; ?></h1>
     
-    <img class="profile-img" src="profile-image.jpg" alt="Profile Image">
+    <img class="profile-img" src="photo/pp.jpg" alt="Profile Image">
 
     <ul class="user-info">
         <li><i class="fas fa-user"></i> <?php echo $name; ?></li>
@@ -77,12 +92,6 @@ $conn->close();
         <li><i class="fas fa-globe"></i> <?php echo $nationality; ?></li>
         <!-- Add more user information with icons here if needed -->
     </ul>
-
-    <!-- Add booking form here or any other content -->
-
-    <form action="logout.php" method="post">
-        <input type="submit" value="Logout">
-    </form>
 </div>
 
 <footer>
@@ -90,6 +99,17 @@ $conn->close();
         <p>&copy; 2024 Your Website. All rights reserved.</p>
     </div>
 </footer>
+
+<script>
+    function toggleLogoutOption() {
+        var logoutOption = document.querySelector('.logout-option');
+        if (logoutOption.style.display === "none") {
+            logoutOption.style.display = "block";
+        } else {
+            logoutOption.style.display = "none";
+        }
+    }
+</script>
 
 </body>
 </html>
