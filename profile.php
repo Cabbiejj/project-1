@@ -92,7 +92,9 @@ $conn->close();
         <li><i class="fas fa-globe"></i> <?php echo $nationality; ?></li>
         <!-- Add more user information with icons here if needed -->
     </ul>
+    <button class="book-now-button" onclick="location.href='booking_form.php'">Book Now</button>
 </div>
+
 
 <footer>
     <div class="container">
