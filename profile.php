@@ -22,7 +22,7 @@ $stmt->store_result();
 
 // Check if user exists
 if ($stmt->num_rows == 1) {
-    $stmt->bind_result($name, $phone, $email, $birthday, $nationality);
+    $stmt->bind_result($name, $phone, $email, $birthday, $address);
     $stmt->fetch();
 } else {
     // Handle error if user doesn't exist
@@ -42,76 +42,118 @@ $conn->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-    <link rel="stylesheet" href="Style/profile.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <style>
-        .logout-option {
-            display: none;
+        /* Custom CSS styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar {
+            background-color: #343a40; /* Dark background color */
+        }
+
+        .navbar-brand {
+            color: #ffffff; /* White text */
+            font-size: 1.5rem; /* Larger font size */
+        }
+
+        .navbar-nav .nav-item .nav-link {
+            color: #ffffff; /* White text */
+        }
+
+        .navbar-nav .nav-item .nav-link:hover {
+            color: #adb5bd; /* Lighter text color on hover */
+        }
+
+        .container {
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #ffffff; /* White background */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            max-width: 600px;
+        }
+
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 20px auto;
+            display: block;
+        }
+
+        .user-info {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .user-info li {
+            margin-bottom: 10px;
+        }
+
+        .user-info li i {
+            margin-right: 10px;
+        }
+
+        .book-now-button {
+            background-color: #28a745; /* Green button */
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 20px;
+            display: block;
+            width: 100%;
+            text-align: center;
         }
     </style>
 </head>
 <body>
 
-<nav class="navbar">
-    <a class="navbar-brand" href="#">Your Website</a>
-    <div class="collapse navbar-collapse" id="main-navigation">
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="index.html">Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="about.html">About</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="contact.html">Contact</a>
-            </li>
-            <li class="nav-item">
-                <!-- Make user name clickable -->
-                <span class="nav-link user-name" onclick="toggleLogoutOption()"><?php echo $name; ?></span>
-                <!-- Logout option -->
-                <div class="logout-option">
-                    <form action="logout.php" method="post">
-                        <input type="submit" value="Logout">
-                    </form>
-                </div>
-            </li>
-        </ul>
-    </div>
-</nav>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <h3 class="navbar-brand">Jakarta Tour Guide</h3>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="main-navigation">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="about.html">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="contact.html">Contact</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
 
-<div class="container">
-    <h1>Welcome, <?php echo $name; ?></h1>
-    
-    <img class="profile-img" src="photo/pp.jpg" alt="Profile Image">
-
-    <ul class="user-info">
-        <li><i class="fas fa-user"></i> <?php echo $name; ?></li>
-        <li><i class="fas fa-phone"></i> <?php echo $phone; ?></li>
-        <li><i class="fas fa-envelope"></i> <?php echo $email; ?></li>
-        <li><i class="fas fa-birthday-cake"></i> <?php echo $birthday; ?></li>
-        <li><i class="fas fa-globe"></i> <?php echo $nationality; ?></li>
-        <!-- Add more user information with icons here if needed -->
-    </ul>
-    <button class="book-now-button" onclick="location.href='booking_form.php'">Book Now</button>
-</div>
-
-
-<footer>
     <div class="container">
-        <p>&copy; 2024 Your Website. All rights reserved.</p>
+        <h2 class="text-center">User Profile</h2>
+        <hr>
+        <div class="text-center">
+            <img src="photo/profile.png" alt="Profile Picture" class="profile-img">
+            <h4><?php echo $name; ?></h4>
+        </div>
+        <ul class="user-info">
+            <li><i class="fa fa-envelope"></i> <?php echo $email; ?></li>
+            <li><i class="fa fa-phone"></i> <?php echo $phone; ?></li>
+            <li><i class="fa fa-birthday-cake"></i> <?php echo $birthday; ?></li>
+            <li><i class="fa fa-address-card"></i> <?php echo $address; ?></li>
+        </ul>
+        <hr>
+        <a href="booking_form.php" class="book-now-button">Book Now</a>
     </div>
-</footer>
 
-<script>
-    function toggleLogoutOption() {
-        var logoutOption = document.querySelector('.logout-option');
-        if (logoutOption.style.display === "none") {
-            logoutOption.style.display = "block";
-        } else {
-            logoutOption.style.display = "none";
-        }
-    }
-</script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
 
 </body>
 </html>
