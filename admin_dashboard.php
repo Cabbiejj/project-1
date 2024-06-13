@@ -2,9 +2,6 @@
 session_start();
 include 'db_connect.php';
 
-// Check if email is set and ends with "@admin.com"
-
-
 // Retrieve all bookings from the database
 $sql = "SELECT * FROM booking";
 $result = $conn->query($sql);
@@ -23,63 +20,202 @@ $conn->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="Style/admin_dashboard.css">
+    <style>
+        /* Reset default browser styles */
+        body {
+            padding: 0;
+            margin: 0;
+            background: #f2f6e9;
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar {
+            background: #6ab446;
+        }
+
+        .nav-link,
+        .navbar-brand {
+            font-size: 1rem;
+            margin-top: 10px;
+        }
+
+        .nav-link {
+            margin-right: 1em !important;
+        }
+
+        .nav-link:hover {
+            color: #000;
+        }
+
+        .navbar-collapse {
+            justify-content: flex-end;
+        }
+
+        /* Container Styles */
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Heading Styles */
+        h1, h2 {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        /* Table Styles */
+        .table-container {
+            overflow-x: auto; /* Enable horizontal scroll for smaller screens */
+            margin-top: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 12px; /* Increased padding for better readability */
+            text-align: left;
+        }
+
+        table th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        table tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        /* Adjust specific columns */
+        table th.arrival-date, table td.arrival-date,
+        table th.start-date, table td.start-date {
+            width: 150px; /* Set a specific width */
+        }
+
+        table th.assign-member, table td.assign-member {
+            width: 300px; /* Set a specific width */
+        }
+
+        /* Form Element Styles */
+        select {
+            width: 100%; /* Make select box take full width of its container */
+            max-width: 300px; /* Set max width to ensure it fits in one line */
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 8px 12px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        /* Checkbox Styles */
+        input[type="checkbox"] {
+            transform: scale(1.5); /* Make the checkbox larger */
+            accent-color: #4CAF50; /* Change the tick color to green */
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            table th, table td {
+                padding: 10px; /* Adjusted padding for smaller screens */
+            }
+        }
+    </style>
+    <script>
+        function showDescription(description) {
+            alert(description); // Placeholder for modal implementation
+        }
+
+        function updateSelectText(selectElement) {
+            var selectedText = selectElement.options[selectElement.selectedIndex].text;
+            if (selectedText.startsWith('Member')) {
+                selectElement.options[selectElement.selectedIndex].text = selectedText.split(' ')[1];
+            }
+        }
+    </script>
 </head>
 <body>
     <div class="container">
         <h1>Welcome Admin!</h1>
         
         <h2>Bookings Confirmed by Users:</h2>
-        <?php if ($result->num_rows > 0): ?>
-            <table>
-                <tr>
-                    <th>Name</th>
-                    <th>Category</th>
-                    <th>People</th>
-                    <th>Interested to visit</th>
-                    <th>Arrival Date</th>
-                    <th>Start Tour Date</th>
-                    <th>Phone Number</th>
-                    <th>Email</th>
-                    <th>Assign Member</th>
-                    <th>Description</th>
-                    <th>Action</th>
-                </tr>
-                <?php while ($row = $result->fetch_assoc()): ?>
-                    <tr>
-                        <td><?php echo $row['name']; ?></td>
-                        <td><?php echo $row['category']; ?></td>
-                        <td><?php echo $row['people']; ?></td>
-                        <td><?php echo $row['interest']; ?></td>
-                        <td><?php echo $row['arrival_date']; ?></td>
-                        <td><?php echo $row['start_date']; ?></td>
-                        <td><?php echo $row['phone']; ?></td>
-                        <td><?php echo $row['email']; ?></td>
-                        <td>
-                            <select>
-                                <option value="">Select Member</option>
-                                <option value="member1">Member 1</option>
-                                <option value="member2">Member 2</option>
-                                <option value="member3">Member 3</option>
-                                <!-- Add more members as needed -->
-                            </select>
-                        </td>
-                        <td>
-                            <button onclick="showDescription('<?php echo $row['description']; ?>')">Description</button>
-                        </td>
-                        <td><input type="checkbox"></td>
-                    </tr>
-                <?php endwhile; ?>
-            </table>
-        <?php else: ?>
-            <p>No bookings found.</p>
-        <?php endif; ?>
+        <div class="table-container">
+            <?php if ($result->num_rows > 0): ?>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Category</th>
+                            <th>People</th>
+                            <th>Interested</th>
+                            <th class="arrival-date">Arrival Date</th>
+                            <th class="start-date">Start Date</th>
+                            <th>Contact</th>
+                            <th>Email</th>
+                            <th class="assign-member">Assign Member</th>
+                            <th>Description</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php while ($row = $result->fetch_assoc()): ?>
+                            <tr>
+                                <td><?= htmlspecialchars($row['name']); ?></td>
+                                <td><?= htmlspecialchars($row['category']); ?></td>
+                                <td><?= htmlspecialchars($row['people']); ?></td>
+                                <td><?= htmlspecialchars($row['interest']); ?></td>
+                                <td class="arrival-date"><?= htmlspecialchars($row['arrival_date']); ?></td>
+                                <td class="start-date"><?= htmlspecialchars($row['start_date']); ?></td>
+                                <td><?= htmlspecialchars($row['phone']); ?></td>
+                                <td><?= htmlspecialchars($row['email']); ?></td>
+                                <td class="assign-member">
+                                    <select onchange="updateSelectText(this)">
+                                        <option value="">Select Member</option>
+                                        <option value="member1">Member 1</option>
+                                        <option value="member2">Member 2</option>
+                                        <option value="member3">Member 3</option>
+                                        <!-- Add more members as needed -->
+                                    </select>
+                                </td>
+                                <td>
+                                    <button onclick="showDescription('<?= htmlspecialchars($row['description']); ?>')">Description</button>
+                                </td>
+                                <td><input type="checkbox"></td>
+                            </tr>
+                        <?php endwhile; ?>
+                    </tbody>
+                </table>
+            <?php else: ?>
+                <p>No bookings found.</p>
+            <?php endif; ?>
+        </div>
     </div>
-
-    <script>
-        function showDescription(description) {
-            alert(description); // Change this to display the description in a modal or popover
-        }
-    </script>
 </body>
 </html>
