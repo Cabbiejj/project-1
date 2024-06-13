@@ -1,38 +1,37 @@
 <?php
-session_start();
+    include 'db_connect.php';
 
-// Check if the form is submitted
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Get form data
-    $name = $_POST['name'];
-    $email = $_POST['email'];
-    $message = $_POST['message'];
+    // Check if form is submitted
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        // Retrieve form data
+        $name = $_POST['name'];
+        $email = $_POST['email'];
+        $message = $_POST['message'];
 
-    // Create connection to the database
-    $servername = "localhost";
-    $username = "root";
-    $password = ""; 
-    $database_name = "project1"; 
+        // Prepare an SQL statement to insert data
+        $stmt = $conn->prepare("INSERT INTO get_in_touch (name, email, message) VALUES (?, ?, ?)");
 
-    $conn = mysqli_connect($servername, $username, $password, $database_name);
+        // Check if the statement was prepared successfully
+        if ($stmt === false) {
+            die("Error preparing statement: " . $conn->error);
+        }
 
-    // Check connection
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
+        // Bind the variables to the statement as parameters
+        $stmt->bind_param("sss", $name, $email, $message);
+
+        // Execute the statement
+        if ($stmt->execute()) {
+            // Redirect to index.html with success status
+            header("Location: index.html?status=success");
+            exit();
+        } else {
+            echo "Error: " . $stmt->error;
+        }
+
+        // Close the statement
+        $stmt->close();
     }
 
-    // Insert data into database
-    $sql = "INSERT INTO contacts (name, email, message) VALUES ('$name', '$email', '$message')";
-
-    if ($conn->query($sql) === TRUE) {
-        $_SESSION['success'] = true; // Set session variable for success
-        echo "success"; // Send success response
-    } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
-    }
-
-    // Close connection
+    // Close the connection
     $conn->close();
-    exit(); // Stop further execution
-}
 ?>
