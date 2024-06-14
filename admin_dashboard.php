@@ -149,10 +149,6 @@ $conn->close();
         }
     </style>
     <script>
-        function showDescription(description) {
-            alert(description); // Placeholder for modal implementation
-        }
-
         function updateSelectText(selectElement) {
             var selectedText = selectElement.options[selectElement.selectedIndex].text;
             if (selectedText.startsWith('Member')) {
@@ -180,7 +176,6 @@ $conn->close();
                             <th>Contact</th>
                             <th>Email</th>
                             <th class="assign-member">Assign Member</th>
-                            <th>Description</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -203,9 +198,6 @@ $conn->close();
                                         <option value="member3">Member 3</option>
                                         <!-- Add more members as needed -->
                                     </select>
-                                </td>
-                                <td>
-                                    <button onclick="showDescription('<?= htmlspecialchars($row['description']); ?>')">Description</button>
                                 </td>
                                 <td><input type="checkbox"></td>
                             </tr>
