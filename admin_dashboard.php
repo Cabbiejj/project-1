@@ -20,6 +20,7 @@ $conn->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
         /* Reset default browser styles */
         body {
@@ -149,10 +150,6 @@ $conn->close();
         }
     </style>
     <script>
-        function showDescription(description) {
-            alert(description); // Placeholder for modal implementation
-        }
-
         function updateSelectText(selectElement) {
             var selectedText = selectElement.options[selectElement.selectedIndex].text;
             if (selectedText.startsWith('Member')) {
@@ -163,6 +160,7 @@ $conn->close();
 </head>
 <body>
     <div class="container">
+    <a href="login.php" class="back-button"><i class="fas fa-arrow-left"></i> </a>
         <h1>Welcome Admin!</h1>
         
         <h2>Bookings Confirmed by Users:</h2>
@@ -180,7 +178,6 @@ $conn->close();
                             <th>Contact</th>
                             <th>Email</th>
                             <th class="assign-member">Assign Member</th>
-                            <th>Description</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -203,9 +200,6 @@ $conn->close();
                                         <option value="member3">Member 3</option>
                                         <!-- Add more members as needed -->
                                     </select>
-                                </td>
-                                <td>
-                                    <button onclick="showDescription('<?= htmlspecialchars($row['description']); ?>')">Description</button>
                                 </td>
                                 <td><input type="checkbox"></td>
                             </tr>
