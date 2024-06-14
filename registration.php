@@ -41,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($conn->query($sql) === TRUE) {
             // Redirect the user to another page if needed
-            header("Location: profile.php");
+            header("Location: login.php");
             exit(); // Stop executing the rest of the code after redirection
         } else {
             $errors['db'] = "Error: " . $sql . "<br>" . $conn->error;
