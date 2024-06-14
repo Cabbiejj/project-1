@@ -131,6 +131,11 @@ $conn->close();
                 <li class="nav-item">
                     <a class="nav-link" href="contact.html">Contact</a>
                 </li>
+                <li class="nav-item">
+                    <form action="logout.php" method="post" style="display: inline;">
+                        <button type="submit" class="nav-link btn btn-link" style="color: #ffffff; padding: 0;">Logout</button>
+                    </form>
+                </li>
             </ul>
         </div>
     </nav>
