@@ -169,12 +169,14 @@ $conn->close();
                 <table>
                     <thead>
                         <tr>
+                            <th>ID</th>
                             <th>Name</th>
                             <th>Category</th>
                             <th>People</th>
                             <th>Interested</th>
                             <th class="arrival-date">Arrival Date</th>
                             <th class="start-date">Start Date</th>
+                            <th>Country</th>
                             <th>Contact</th>
                             <th>Email</th>
                             <th class="assign-member">Assign Member</th>
@@ -184,12 +186,14 @@ $conn->close();
                     <tbody>
                         <?php while ($row = $result->fetch_assoc()): ?>
                             <tr>
+                                <td><?= htmlspecialchars($row['id']); ?></td>
                                 <td><?= htmlspecialchars($row['name']); ?></td>
                                 <td><?= htmlspecialchars($row['category']); ?></td>
                                 <td><?= htmlspecialchars($row['people']); ?></td>
                                 <td><?= htmlspecialchars($row['interest']); ?></td>
                                 <td class="arrival-date"><?= htmlspecialchars($row['arrival_date']); ?></td>
                                 <td class="start-date"><?= htmlspecialchars($row['start_date']); ?></td>
+                                <td><?= htmlspecialchars($row['country']); ?></td>
                                 <td><?= htmlspecialchars($row['phone']); ?></td>
                                 <td><?= htmlspecialchars($row['email']); ?></td>
                                 <td class="assign-member">
