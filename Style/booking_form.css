@@ -2,59 +2,80 @@
 
 /* General Styles */
 body {
-    padding: 0;
-    margin: 0;
-    background: #f2f6e9;
-    font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 0;
+  margin: 0;
+  background: #f2f6e9;
+  font-family: Arial, sans-serif;
 }
 
 h1 {
-    text-align: center;
-    margin: 20px 0;
+  text-align: center;
+  margin: 20px 0;
+}
+
+.success-message {
+  text-align: center;
+  color: green;
+  font-weight: bold;
 }
 
 form {
-    max-width: 600px;
-    margin: 20px auto;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 600px;
+  width: 100%;
+  margin: 20px auto;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 label {
-    font-weight: bold;
+  font-weight: bold;
+  width: 100%;
+  max-width: 300px;
 }
 
 input[type="text"],
 input[type="number"],
 input[type="email"],
 input[type="date"] {
-    width: 100%;
-    max-width: 300px;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    margin-bottom: 10px;
+  width: 100%;
+  max-width: 300px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
 }
 
 input[type="submit"] {
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 4px;
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
 }
 
 input[type="submit"]:hover {
-    background-color: #45a049;
+  background-color: #45a049;
 }
 
 /* Responsive Design */
 @media screen and (max-width: 768px) {
-    form {
-        padding: 10px;
-    }
+  form {
+    padding: 10px;
+  }
+
+  label,
+  input {
+    max-width: 100%;
+  }
 }

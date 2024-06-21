@@ -9,7 +9,7 @@ if (!isset($_SESSION['user_email'])) {
 }
 
 // Initialize variables
-$name = $category = $people = $interest = $arrival_date = $start_date = $phone = $email = '';
+$name = $category = $people = $interest = $arrival_date = $start_date = $phone = $email = $country = '';
 $success = '';
 
 // Check if the form is submitted
@@ -23,13 +23,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $start_date = $_POST['start_date'];
     $phone = $_POST['phone'];
     $email = $_POST['email'];
+    $country = $_POST['country'];
 
     // Insert booking into the database
-    $sql = "INSERT INTO booking (name, category, people, interest, arrival_date, start_date, phone, email, user_email) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO booking (name, category, people, interest, arrival_date, start_date, phone, email, country, user_email) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ssissssss", $name, $category, $people, $interest, $arrival_date, $start_date, $phone, $email, $_SESSION['user_email']);
+    $stmt->bind_param("ssisssssss", $name, $category, $people, $interest, $arrival_date, $start_date, $phone, $email, $country, $_SESSION['user_email']);
     if ($stmt->execute()) {
-        $success = "Booking successful!";
+        header("Location: profile.php");
+        exit();
     } else {
         $success = "Error occurred while booking.";
     }
@@ -51,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     <h1>Booking Form</h1>
     <?php if ($success): ?>
-        <p><?php echo $success; ?></p>
+        <p class="success-message"><?php echo $success; ?></p>
     <?php endif; ?>
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
         <label for="name">Name:</label><br>
@@ -68,6 +70,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <input type="date" id="start_date" name="start_date" required><br>
         <label for="phone">Phone Number:</label><br>
         <input type="text" id="phone" name="phone" required><br>
+        <label for="country">Country From:</label><br>
+        <input type="text" id="country" name="country" required><br><br>
         <label for="email">Email:</label><br>
         <input type="email" id="email" name="email" required><br><br>
         <input type="submit" value="Submit">
