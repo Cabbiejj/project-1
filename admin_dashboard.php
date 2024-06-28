@@ -160,7 +160,7 @@ $conn->close();
 </head>
 <body>
     <div class="container">
-    <a href="login.php" class="back-button"><i class="fas fa-arrow-left"></i> </a>
+        <a href="login.php" class="back-button"><i class="fas fa-arrow-left"></i> </a>
         <h1>Welcome Admin!</h1>
         
         <h2>Bookings Confirmed by Users:</h2>
@@ -205,7 +205,12 @@ $conn->close();
                                         <!-- Add more members as needed -->
                                     </select>
                                 </td>
-                                <td><input type="checkbox"></td>
+                                <td>
+                                    <form action="delete_booking.php" method="post">
+                                        <input type="hidden" name="booking_id" value="<?= $row['id']; ?>">
+                                        <button type="submit" onclick="return confirm('Are you sure you want to delete this booking?')">Delete</button>
+                                    </form>
+                                </td>
                             </tr>
                         <?php endwhile; ?>
                     </tbody>
