@@ -133,7 +133,7 @@ $conn->close();
                 </li>
                 <li class="nav-item">
                     <form action="logout.php" method="post" style="display: inline;">
-                        <button type="submit" class="nav-link btn btn-link" style="color: #ffffff; padding: 0;">Logout</button>
+                        <button type="submit" class="nav-link btn btn-link" style="color: #ffffff; padding: 100;">Logout</button>
                     </form>
                 </li>
             </ul>

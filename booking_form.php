@@ -30,8 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("ssisssssss", $name, $category, $people, $interest, $arrival_date, $start_date, $phone, $email, $country, $_SESSION['user_email']);
     if ($stmt->execute()) {
-        header("Location: profile.php");
-        exit();
+        $success = "Booking successfully submitted!";
     } else {
         $success = "Error occurred while booking.";
     }
@@ -47,34 +46,86 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="Style/booking_form.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="Style/booking_form.css"> 
+
     <title>Booking Form</title>
 </head>
 <body>
-    <h1>Booking Form</h1>
-    <?php if ($success): ?>
-        <p class="success-message"><?php echo $success; ?></p>
-    <?php endif; ?>
-    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-        <label for="name">Name:</label><br>
-        <input type="text" id="name" name="name" required><br>
-        <label for="category">Category:</label><br>
-        <input type="text" id="category" name="category" required><br>
-        <label for="people">People:</label><br>
-        <input type="number" id="people" name="people" required><br>
-        <label for="interest">Interested to visit:</label><br>
-        <input type="text" id="interest" name="interest" required><br>
-        <label for="arrival_date">Arrival Date:</label><br>
-        <input type="date" id="arrival_date" name="arrival_date" required><br>
-        <label for="start_date">Start Tour Date:</label><br>
-        <input type="date" id="start_date" name="start_date" required><br>
-        <label for="phone">Phone Number:</label><br>
-        <input type="text" id="phone" name="phone" required><br>
-        <label for="country">Country From:</label><br>
-        <input type="text" id="country" name="country" required><br><br>
-        <label for="email">Email:</label><br>
-        <input type="email" id="email" name="email" required><br><br>
-        <input type="submit" value="Submit">
-    </form>
+    <div class="container">
+        <h1 class="top-center">Booking Form</h1>
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="category">Category:</label>
+                <input type="text" class="form-control" id="category" name="category" required>
+            </div>
+            <div class="form-group">
+                <label for="people">People:</label>
+                <input type="number" class="form-control" id="people" name="people" required>
+            </div>
+            <div class="form-group">
+                <label for="interest">Interested to visit:</label>
+                <input type="text" class="form-control" id="interest" name="interest" required>
+            </div>
+            <div class="form-group">
+                <label for="arrival_date">Arrival Date:</label>
+                <input type="date" class="form-control" id="arrival_date" name="arrival_date" required>
+            </div>
+            <div class="form-group">
+                <label for="start_date">Start Tour Date:</label>
+                <input type="date" class="form-control" id="start_date" name="start_date" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone Number:</label>
+                <input type="text" class="form-control" id="phone" name="phone" required>
+            </div>
+            <div class="form-group">
+                <label for="country">Country From:</label>
+                <input type="text" class="form-control" id="country" name="country" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+
+    <!-- The Modal -->
+    <div id="successModal" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Success!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p><?php echo $success; ?></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        // Show the modal if there is a success message
+        $(document).ready(function() {
+            <?php if (!empty($success)): ?>
+                $('#successModal').modal('show');
+            <?php endif; ?>
+        });
+
+        // Redirect to profile page after closing modal
+        $('#successModal').on('hidden.bs.modal', function () {
+            window.location.replace("profile.php");
+        });
+    </script>
 </body>
 </html>
