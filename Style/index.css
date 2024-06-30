@@ -132,50 +132,6 @@ body {
   transition: opacity 0.3s ease;
 }
 
-.get-in-touch {
-  background-color: #f8f9fa;
-  padding: 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin-top: 20px;
-  border-radius: 10px;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.get-in-touch .form-group {
-  margin-bottom: 15px;
-}
-
-.get-in-touch .form-control {
-  padding: 10px;
-  font-size: 0.9rem;
-}
-
-.get-in-touch .btn {
-  margin-top: 15px;
-  padding: 10px 15px;
-  font-size: 0.9rem;
-  background-color: #589b37;
-  border: 1px solid #589b37;
-  color: #fff;
-  width: 100%;
-  border-radius: 5px;
-}
-
-.get-in-touch .btn:hover {
-  background-color: #333;
-  border: 1px solid #333;
-}
-
-.get-in-touch h3.feature-title {
-  color: #333;
-  font-size: 1.3rem;
-  font-weight: 700;
-  margin-bottom: 20px;
-  text-transform: uppercase;
-}
-
 .architecture {
   text-align: center;
   background-color: #fff;
@@ -198,4 +154,13 @@ body {
   color: #333;
   font-size: 1rem;
   line-height: 1.5;
+}
+footer {
+  background-color: #343a40;
+  color: #fff;
+  text-align: center;
+
+  bottom: 0;
+  width: 100%;
+  padding: 10px 0;
 }

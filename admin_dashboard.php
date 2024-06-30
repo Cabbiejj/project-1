@@ -265,6 +265,7 @@ $conn->close();
                             <th>Country</th>
                             <th>Contact</th>
                             <th>Email</th>
+                            <th>Total Price</th> <!-- New Column -->
                             <th class="assign-member">Assign Member</th>
                             <th>Action</th>
                         </tr>
@@ -282,12 +283,13 @@ $conn->close();
                                 <td><?= htmlspecialchars($row['country']); ?></td>
                                 <td><?= htmlspecialchars($row['phone']); ?></td>
                                 <td><?= htmlspecialchars($row['email']); ?></td>
+                                <td><?= htmlspecialchars($row['total_price']); ?></td> <!-- Display Total Price -->
                                 <td class="assign-member">
                                     <select onchange="updateSelectText(this)">
                                         <option value="">Select Member</option>
-                                        <option value="member1">Member 1</option>
-                                        <option value="member2">Member 2</option>
-                                        <option value="member3">Member 3</option>
+                                        <option value="member1">Jay</option>
+                                        <option value="member2">Reydan</option>
+                                        <option value="member3">Mahian</option>
                                         <!-- Add more members as needed -->
                                     </select>
                                 </td>
