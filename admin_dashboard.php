@@ -138,6 +138,21 @@ $conn->close();
             accent-color: #4CAF50; /* Change the tick color to green */
         }
 
+        /* Local Time Box Styles */
+        #local-time-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        #local-time {
+            padding: 10px;
+            background-color: #d4edda;
+            border: 1px solid #6ab446;
+            border-radius: 8px;
+            font-size: 3em;
+        }
+
         /* Responsive Design */
         @media screen and (max-width: 768px) {
             .container {
@@ -156,13 +171,29 @@ $conn->close();
                 selectElement.options[selectElement.selectedIndex].text = selectedText.split(' ')[1];
             }
         }
+
+        function displayLocalTime() {
+            var now = new Date();
+            var hours = now.getHours().toString().padStart(2, '0');
+            var minutes = now.getMinutes().toString().padStart(2, '0');
+            var seconds = now.getSeconds().toString().padStart(2, '0');
+            var formattedTime = hours + ':' + minutes + ':' + seconds;
+            document.getElementById('local-time').textContent = formattedTime;
+        }
+
+        setInterval(displayLocalTime, 1000); // Update the time every second
     </script>
 </head>
-<body>
+<body onload="displayLocalTime()">
     <div class="container">
-        <a href="login.php" class="back-button"><i class="fas fa-arrow-left"></i> </a>
-        <h1>Welcome Admin!</h1>
+        <a href="login.php" class="back-button"><i class="fas fa-arrow-left"></i></a>
         
+        <div id="local-time-container">
+            <div id="local-time"></div>
+        </div>
+
+        <h1>Welcome Admin!</h1>
+        <br>
         <h2>Bookings Confirmed by Users:</h2>
         <div class="table-container">
             <?php if ($result->num_rows > 0): ?>
