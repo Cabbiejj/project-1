@@ -55,41 +55,43 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="container">
         <h1 class="top-center">Booking Form</h1>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-            <div class="form-group">
-                <label for="name">Name:</label>
-                <input type="text" class="form-control" id="name" name="name" required>
-            </div>
-            <div class="form-group">
-                <label for="category">Category:</label>
-                <input type="text" class="form-control" id="category" name="category" required>
-            </div>
-            <div class="form-group">
-                <label for="people">People:</label>
-                <input type="number" class="form-control" id="people" name="people" required>
-            </div>
-            <div class="form-group">
-                <label for="interest">Interested to visit:</label>
-                <input type="text" class="form-control" id="interest" name="interest" required>
-            </div>
-            <div class="form-group">
-                <label for="arrival_date">Arrival Date:</label>
-                <input type="date" class="form-control" id="arrival_date" name="arrival_date" required>
-            </div>
-            <div class="form-group">
-                <label for="start_date">Start Tour Date:</label>
-                <input type="date" class="form-control" id="start_date" name="start_date" required>
-            </div>
-            <div class="form-group">
-                <label for="phone">Phone Number:</label>
-                <input type="text" class="form-control" id="phone" name="phone" required>
-            </div>
-            <div class="form-group">
-                <label for="country">Country From:</label>
-                <input type="text" class="form-control" id="country" name="country" required>
-            </div>
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" class="form-control" id="email" name="email" required>
+            <div class="row">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="category">Category:</label>
+                    <input type="text" class="form-control" id="category" name="category" required>
+                </div>
+                <div class="form-group">
+                    <label for="people">People:</label>
+                    <input type="number" class="form-control" id="people" name="people" required>
+                </div>
+                <div class="form-group">
+                    <label for="interest">Interested to visit:</label>
+                    <input type="text" class="form-control" id="interest" name="interest" required>
+                </div>
+                <div class="form-group">
+                    <label for="arrival_date">Arrival Date:</label>
+                    <input type="date" class="form-control" id="arrival_date" name="arrival_date" required>
+                </div>
+                <div class="form-group">
+                    <label for="start_date">Start Tour Date:</label>
+                    <input type="date" class="form-control" id="start_date" name="start_date" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number:</label>
+                    <input type="text" class="form-control" id="phone" name="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="country">Country From:</label>
+                    <input type="text" class="form-control" id="country" name="country" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </div>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
