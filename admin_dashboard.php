@@ -193,7 +193,7 @@ $conn->close();
         </div>
 
         <h1>Welcome Admin!</h1>
-        
+        <br>
         <h2>Bookings Confirmed by Users:</h2>
         <div class="table-container">
             <?php if ($result->num_rows > 0): ?>
