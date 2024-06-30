@@ -141,6 +141,10 @@ $conn->close();
             margin-left: 10px;
         }
 
+        .print-invoice-btn {
+            margin-left: 10px;
+        }
+
         /* Modal Styles */
         .modal-header {
             background-color: #007bff;
@@ -208,7 +212,10 @@ $conn->close();
                             <p><strong>Arrival Date:</strong> <?php echo htmlspecialchars($booking['arrival_date']); ?></p>
                             <p><strong>Start Date:</strong> <?php echo htmlspecialchars($booking['start_date']); ?></p>
                         </div>
-                        <button type="button" class="btn btn-primary edit-booking-btn" data-toggle="modal" data-target="#editBookingModal" data-booking-id="<?php echo $booking['id']; ?>">Edit Booking</button>
+                        <div>
+                            <button type="button" class="btn btn-primary edit-booking-btn" data-toggle="modal" data-target="#editBookingModal" data-booking-id="<?php echo $booking['id']; ?>">Edit Booking</button>
+                            <a href="invoice.php?id=<?php echo $booking['id']; ?>" class="btn btn-secondary print-invoice-btn" target="_blank">Print Invoice</a>
+                        </div>
                     </div>
                 <?php endforeach; ?>
             <?php else : ?>
@@ -262,7 +269,7 @@ $conn->close();
         </div>
     </div>
 
-
+    <!-- JavaScript and dependencies -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
 
@@ -311,6 +318,12 @@ $conn->close();
                         alert('Error updating booking. Please try again.');
                     }
                 });
+            });
+
+            // Handle click on Print Invoice button
+            $('.print-invoice-btn').on('click', function() {
+                var bookingId = $(this).attr('data-booking-id');
+                window.open('invoice.php?id=' + bookingId, '_blank');
             });
         });
     </script>

@@ -1,6 +1,5 @@
 <?php
 session_start();
-
 include 'db_connect.php';
 
 // Check if user is logged in
@@ -19,10 +18,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $arrival_date = $_POST['editBookingArrivalDate'];
     $start_date = $_POST['editBookingStartDate'];
 
+    // Calculate total price based on category and number of people
+    $totalPrice = calculateTotalPrice($category, $people);
+
     // Prepare update statement
-    $sql_update = "UPDATE booking SET name=?, category=?, people=?, interest=?, arrival_date=?, start_date=? WHERE id=?";
+    $sql_update = "UPDATE booking SET name=?, category=?, people=?, interest=?, arrival_date=?, start_date=?, total_price=? WHERE id=?";
     $stmt_update = $conn->prepare($sql_update);
-    $stmt_update->bind_param("ssisssi", $name, $category, $people, $interest, $arrival_date, $start_date, $bookingId);
+    $stmt_update->bind_param("ssisssdi", $name, $category, $people, $interest, $arrival_date, $start_date, $totalPrice, $bookingId);
 
     // Execute update
     if ($stmt_update->execute()) {
@@ -36,5 +38,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $conn->close();
 } else {
     echo "Invalid request.";
+}
+
+// Function to calculate total price based on category and number of people
+function calculateTotalPrice($category, $people) {
+    switch ($category) {
+        case '1':
+            return 350 * $people;
+        case '2':
+            return 650 * $people;
+        default:
+            return 0; // Default to 0 if category is not recognized
+    }
 }
 ?>
