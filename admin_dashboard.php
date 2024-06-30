@@ -60,6 +60,7 @@ $conn->close();
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: relative; /* Ensure container is positioned */
         }
 
         /* Heading Styles */
@@ -119,16 +120,19 @@ $conn->close();
             box-sizing: border-box;
         }
 
-        button {
-            padding: 8px 12px;
+        button.print-button {
+            padding: 20px 22px;
             background-color: #4CAF50;
             color: white;
             border: none;
             cursor: pointer;
             border-radius: 4px;
+            position: absolute;
+            top: 20px; /* Adjust top position */
+            right: 20px; /* Adjust right position */
         }
 
-        button:hover {
+        button.print-button:hover {
             background-color: #45a049;
         }
 
@@ -162,6 +166,54 @@ $conn->close();
             table th, table td {
                 padding: 10px; /* Adjusted padding for smaller screens */
             }
+
+            button.print-button {
+                top: 10px; /* Adjust top position for smaller screens */
+                right: 10px; /* Adjust right position for smaller screens */
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                background-color: #fff; /* Ensure background color is white for printing */
+                font-size: 12pt; /* Adjust font size for better readability */
+            }
+
+            .container {
+                box-shadow: none; /* Remove box shadow for printing */
+                border-radius: 0; /* Remove border radius for printing */
+                padding: 0; /* Remove padding for printing */
+                margin: 0; /* Remove margin for printing */
+            }
+
+            button.print-button {
+                display: none; /* Hide print button on print view */
+            }
+
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 20px;
+            }
+
+            table th, table td {
+                border: 1px solid #000; /* Ensure table borders are visible */
+                padding: 8px;
+            }
+
+            table th {
+                background-color: #f2f2f2;
+                font-weight: bold;
+            }
+
+            table tr:nth-child(even) {
+                background-color: #f9f9f9;
+            }
+
+            table tr:hover {
+                background-color: #f1f1f1;
+            }
         }
     </style>
     <script>
@@ -192,8 +244,11 @@ $conn->close();
             <div id="local-time"></div>
         </div>
 
+        <button onclick="window.print()" class="print-button">Print</button> <!-- Print Button -->
+        
         <h1>Welcome Admin!</h1>
         <br>
+        
         <h2>Bookings Confirmed by Users:</h2>
         <div class="table-container">
             <?php if ($result->num_rows > 0): ?>
