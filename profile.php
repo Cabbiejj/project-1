@@ -78,13 +78,14 @@ $conn->close();
         }
 
         .container {
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #ffffff; /* White background */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            max-width: 800px; /* Adjust as needed */
-        }
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #ffffff; /* White background */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    max-width: 800px; /* Adjust as needed */
+    text-align: center; /* Center align contents */
+}
 
         .profile-img {
             width: 150px;
@@ -97,7 +98,7 @@ $conn->close();
         .user-info {
             list-style-type: none;
             padding: 0;
-            text-align: left; /* Align text to the left */
+            text-align: Center; /* Align text to the left */
         }
 
         .user-info li {
@@ -112,15 +113,20 @@ $conn->close();
 
         .bookings {
             margin-top: 20px;
+            text-align: center;
         }
 
         .booking-item {
-            margin-bottom: 20px;
-            padding: 10px;
-            background-color: #f9f9f9;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: left; /* Align text within booking item to the left */
+    display: inline-block; /* Ensure each booking item occupies its own line */
+    max-width: 600px; /* Adjust maximum width for better presentation */
+    width: 100%; /* Ensure full width within container */
+}
 
         .booking-item h4 {
             margin-bottom: 10px;
@@ -140,6 +146,9 @@ $conn->close();
         .modal-body {
             padding: 20px;
         }
+        .booking-item .edit-booking-btn {
+    margin-left: auto;
+}
     </style>
 </head>
 <body>
