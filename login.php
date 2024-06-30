@@ -6,8 +6,8 @@ include 'db_connect.php';
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// Initialize error messages
-$email_error = $password_error = $login_error = '';
+// Initialize error message
+$error_message = '';
 
 // Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -15,9 +15,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    // Server-side validation for password length
+    // Validate password length
     if (strlen($password) < 8) {
-        $password_error = "Password must be at least 8 characters long.";
+        $error_message = "Password must be at least 8 characters long.";
     } else {
         // SQL query to retrieve hashed password for the given email
         $sql = "SELECT password FROM user WHERE email = ?";
@@ -45,11 +45,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 exit();
             } else {
                 // Incorrect password
-                $password_error = "Password is incorrect";
+                $error_message = "Invalid email or password.";
             }
         } else {
             // User not found
-            $email_error = "User not found";
+            $error_message = "Invalid email or password.";
         }
 
         // Close the statement
@@ -74,18 +74,28 @@ $conn->close();
         .error {
             color: red;
         }
+        .footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            background-color: #343a40;
+            color: #fff;
+            padding: 10px 0;
+        }
     </style>
 </head>
 <body>
     <section class="container">
         <a href="index.html" class="back-button"><i class="fas fa-arrow-left"></i> </a>
         <header>Login</header>
-        <div class="error"><?php echo $login_error; ?></div>
+        <?php if (!empty($error_message)) : ?>
+            <div class="error"><?php echo $error_message; ?></div>
+        <?php endif; ?>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" class="form" method="post" onsubmit="return validateForm()">
             <div class="input-box">
                 <label>Email Address</label>
                 <input type="text" name="email" id="email" placeholder="Enter email address" required />
-                <span class="error"><?php echo $email_error; ?></span>
             </div>
             <div class="input-box">
                 <label>Password</label>
@@ -100,6 +110,10 @@ $conn->close();
             <p>Don't have an account? <a href="registration.php">Register now</a></p>
         </div>
     </section>
+
+    <div class="footer">
+        <p>&copy; 2024 Jakarta Tour Guide. All Rights Reserved.</p>
+    </div>
 
     <script>
         function validateForm() {
@@ -119,4 +133,3 @@ $conn->close();
     </script>
 </body>
 </html>
-
