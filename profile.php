@@ -214,7 +214,7 @@ $conn->close();
                         </div>
                         <div>
                             <button type="button" class="btn btn-primary edit-booking-btn" data-toggle="modal" data-target="#editBookingModal" data-booking-id="<?php echo $booking['id']; ?>">Edit Booking</button>
-                            <a href="invoice.php?id=<?php echo $booking['id']; ?>" class="btn btn-secondary print-invoice-btn" target="_blank">Print Invoice</a>
+                             <a href="invoice.php?id=<?php echo $booking['id']; ?>" class="btn btn-secondary print-invoice-btn" target="_blank" data-id="<?php echo $booking['id']; ?>">Print Invoice</a>
                         </div>
                     </div>
                 <?php endforeach; ?>
@@ -321,9 +321,11 @@ $conn->close();
             });
 
             // Handle click on Print Invoice button
-            $('.print-invoice-btn').on('click', function() {
-                var bookingId = $(this).attr('data-booking-id');
-                window.open('invoice.php?id=' + bookingId, '_blank');
+            $('.print-invoice-btn').on('click', function(event) {
+        event.preventDefault();
+        var id = $(this).data('id');
+        console.log(id);  // For debugging
+        window.open('invoice.php?id=' + id, '_blank');
             });
         });
     </script>
