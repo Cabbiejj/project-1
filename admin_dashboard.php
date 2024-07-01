@@ -10,6 +10,14 @@ if (!$result) {
     echo "Error in SQL query: " . $conn->error;
 }
 
+// Retrieve all messages from visitors from the database
+$sql_messages = "SELECT name, email, message FROM get_in_touch";
+$result_messages = $conn->query($sql_messages);
+
+if (!$result_messages) {
+    echo "Error in retrieving messages: " . $conn->error;
+}
+
 // Close the database connection
 $conn->close();
 ?>
@@ -305,6 +313,32 @@ $conn->close();
                 </table>
             <?php else: ?>
                 <p>No bookings found.</p>
+            <?php endif; ?>
+        </div>
+
+        <h2>Messages by Visitors:</h2>
+        <div class="table-container">
+            <?php if ($result_messages->num_rows > 0): ?>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Message</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php while ($row_message = $result_messages->fetch_assoc()): ?>
+                            <tr>
+                                <td><?= htmlspecialchars($row_message['name']); ?></td>
+                                <td><?= htmlspecialchars($row_message['email']); ?></td>
+                                <td><?= htmlspecialchars($row_message['message']); ?></td>
+                            </tr>
+                        <?php endwhile; ?>
+                    </tbody>
+                </table>
+            <?php else: ?>
+                <p>No messages found.</p>
             <?php endif; ?>
         </div>
     </div>
